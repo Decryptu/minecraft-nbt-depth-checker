@@ -1,6 +1,6 @@
 # Minecraft NBT Depth Checker
 
-A Python utility to analyze and diagnose NBT depth issues in Minecraft save files, particularly useful when encountering the "tried to allocate" error caused by excessive NBT tag depths.
+A Python utility to analyze and diagnose NBT depth issues in Minecraft save files, particularly useful when encountering the "tried to read nbt tag that was too big tried to allocate" error caused by excessive NBT tag depths.
 
 ![Minecraft NBT Error](img/error.png)
 
