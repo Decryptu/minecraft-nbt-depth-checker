@@ -17,7 +17,7 @@ def get_max_depth(tag, current_depth=0, path=[]):
     return max(depths, key=lambda x: x[0])
 
 # Load your level.dat file
-nbtfile = nbt.NBTFile("C:/Users/gurva/Desktop/level.dat", "rb")
+nbtfile = nbt.NBTFile("C:/Users/name/Desktop/level.dat", "rb")
 
 # Get the maximum depth and its path
 max_depth, max_path = get_max_depth(nbtfile)
