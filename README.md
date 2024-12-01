@@ -1,10 +1,20 @@
 # Minecraft NBT Depth Checker
 
-A Python utility to analyze and diagnose NBT depth issues in Minecraft save files, particularly useful when encountering the "tried to read NBT tag that was too big, tried to allocate" error caused by excessive NBT tag depths.
+A Python utility to analyze and diagnose NBT depth issues in Minecraft save files, particularly useful when encountering the "tried to allocate" error caused by excessive NBT tag depths.
+
+![Minecraft NBT Error](img/error.png)
 
 ## Overview
 
-When Minecraft saves encounter NBT (Named Binary Tag) structures that are too deep or complex, they can trigger a `java.lang.RuntimeException` with a message about trying to allocate too many bytes. This tool helps identify which parts of your save file are reaching concerning depths, allowing you to track down and fix issues before they cause crashes.
+When Minecraft worlds become complex or corrupted, they can develop issues with NBT (Named Binary Tag) structures becoming too deep or complex. This commonly manifests as a `java.lang.RuntimeException` with a message about trying to allocate too many bytes when attempting to load the world.
+
+This tool helps you identify which parts of your save file's `level.dat` are reaching concerning depths, allowing you to track down and fix issues before they cause crashes.
+
+## Example Output
+
+Here's what the tool's output looks like when analyzing a problematic level.dat file:
+
+![Analysis Result](img/result.png)
 
 ## Features
 
@@ -17,37 +27,50 @@ When Minecraft saves encounter NBT (Named Binary Tag) structures that are too de
 ## Requirements
 
 - Python 3.6 or higher
-- NBT library (`minecraft-nbt-lib`)
+- NBT library (`NBT`)
 
 ## Installation
 
 1. Clone this repository:
 
-    ```bash
-    git clone https://github.com/decryptu/minecraft-nbt-depth-checker
-    cd minecraft-nbt-depth-checker
-    ```
+```bash
+git clone https://github.com/decryptu/minecraft-nbt-depth-checker
+cd minecraft-nbt-depth-checker
+```
 
 2. Install the required dependency:
 
-    ```bash
-    pip install minecraft-nbt-lib
-    ```
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-1. Place the script in a convenient location
-2. Update the path to your level.dat file in the script:
+The script can analyze any Minecraft level.dat file. This file is typically found in your world save folder:
 
-    ```python
-    nbtfile = nbt.NBTFile("path/to/your/level.dat", "rb")
-    ```
+- Windows: `%appdata%/.minecraft/saves/[world_name]/level.dat`
+- Linux: `~/.minecraft/saves/[world_name]/level.dat`
+- macOS: `~/Library/Application Support/minecraft/saves/[world_name]/level.dat`
 
-3. Run the script:
+To analyze a level.dat file:
 
-    ```bash
-    python nbt_depth_checker.py
-    ```
+1. Run the script with your level.dat path:
+
+```bash
+python nbt_depth_checker.py path/to/your/level.dat
+```
+
+Or use the example file:
+
+```bash
+python nbt_depth_checker.py
+```
+
+or
+
+```bash
+python3 nbt_depth_checker.py
+```
 
 The script will output:
 
@@ -56,14 +79,19 @@ The script will output:
 - Depths of all top-level tags
 - Detailed paths for any tags exceeding a specified depth threshold
 
-## Example Output
+## Example File
 
-```bash
-Maximum depth: 147
-Path to maximum depth: Data > Player > RecipBook > toBeDisplayed > [0] > ...
-Data: 147
-  Deep path in Data: Player > RecipBook > toBeDisplayed > [0] > ...
-```
+The repository includes an example `level.dat` file in the `example/` directory that demonstrates the kind of issues this tool can detect. Replace it with your own level.dat file for analysis.
+
+## Common Issues
+
+The "tried to allocate" error typically occurs in the level.dat file of your Minecraft save. This can happen due to:
+
+- Complex redstone contraptions
+- Large numbers of entities in a small area
+- Corrupted chunks
+- Mod-related issues
+- World conversion issues
 
 ## Contributing
 
@@ -80,4 +108,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Technical Background
 
-Minecraft uses NBT (Named Binary Tag) format to store various game data. The format allows for nested structures, but excessive nesting can lead to memory allocation issues. The default maximum NBT depth in Minecraft appears to be around 512 levels, though this can vary based on the specific version and implementation.
+Minecraft uses NBT (Named Binary Tag) format to store various game data in the level.dat file. While the format allows for nested structures, excessive nesting can lead to memory allocation issues. The error typically occurs when trying to load a world where the NBT structure has become too complex, often manifesting as a 2MB allocation error.
