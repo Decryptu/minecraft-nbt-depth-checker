@@ -60,16 +60,16 @@ To analyze a level.dat file:
 python nbt_depth_checker.py path/to/your/level.dat
 ```
 
+Or if you have Python 3:
+
+```bash
+python3 nbt_depth_checker.py path/to/your/level.dat
+```
+
 Or use the example file:
 
 ```bash
 python nbt_depth_checker.py
-```
-
-or
-
-```bash
-python3 nbt_depth_checker.py
 ```
 
 The script will output:
