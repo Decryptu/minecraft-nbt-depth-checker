@@ -153,7 +153,7 @@ class NBTAnalyzer:
         """Analyze an NBT file and optionally reduce problematic structures."""
         try:
             # Print welcome message
-            self.print_header("NBT Depth Analyzer")
+            self.print_header("NBT Depth Analyzer by Decrypt")
             if self.show_full_paths:
                 print(f"{Colors.CYAN}Full path display: {Colors.GREEN}Enabled{Colors.ENDC}")
             
